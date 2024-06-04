@@ -25,16 +25,19 @@ Este projeto é uma Pokedex completa e responsiva, desenvolvida com Next.js e Ch
 1. **Clone o repositório:**
    ```bash
    git clone (https://github.com/Gabrielcafens/nextchakrapokedex.git)
+   ```
 Instale as dependências:
 
-bash
+```bash
 Copy code
 npm install
+```
 Execute o app:
 
-bash
+```bash
 Copy code
 npm start
+```
 Acesse a Pokedex:
 Abra o navegador em http://localhost:3001 e explore o mundo dos Pokemons!
 
