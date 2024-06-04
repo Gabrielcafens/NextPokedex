@@ -29,13 +29,11 @@ Este projeto é uma Pokedex completa e responsiva, desenvolvida com Next.js e Ch
 Instale as dependências:
 
 ```bash
-Copy code
 npm install
 ```
 Execute o app:
 
 ```bash
-Copy code
 npm start
 ```
 Acesse a Pokedex:
