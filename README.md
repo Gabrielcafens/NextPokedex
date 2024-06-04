@@ -26,12 +26,12 @@ Este projeto é uma Pokedex completa e responsiva, desenvolvida com Next.js e Ch
    ```bash
    git clone (https://github.com/Gabrielcafens/nextchakrapokedex.git)
    ```
-Instale as dependências:
+2. **Instale as dependências:**
 
 ```bash
 npm install
 ```
-Execute o app:
+3. **Execute o app:**
 
 ```bash
 npm start
