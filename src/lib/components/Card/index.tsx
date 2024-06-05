@@ -46,6 +46,7 @@ export const PokeCard: React.FC<IPokeCard> = ({ name, url }: IPokeCard) => {
   );
   const router = useRouter();
   const toast = useToast();
+
   useEffect(() => {
     const fetchPokemonDetails = async () => {
       try {
@@ -75,7 +76,16 @@ export const PokeCard: React.FC<IPokeCard> = ({ name, url }: IPokeCard) => {
   }, [toast, url]);
 
   const handleCardClick = () => {
-    router.push(`/pokemonId/${pokemonDetails?.id}`);
+    if (pokemonDetails) {
+      // Reproduz o som do Pokémon
+      const audio = new Audio(
+        `https://github.com/PokeAPI/cries/raw/8584048df8f55ee1c436da23b378316e9d416a9b/cries/pokemon/legacy/${pokemonDetails.id}.ogg`
+      );
+      audio.play();
+
+      // Redireciona para a página do Pokémon
+      router.push(`/pokemonId/${pokemonDetails.id}`);
+    }
   };
 
   if (
@@ -88,12 +98,11 @@ export const PokeCard: React.FC<IPokeCard> = ({ name, url }: IPokeCard) => {
 
   return (
     <Box
-      borderWidth="3px"
+      borderWidth="1px"
       borderRadius="lg"
       overflow="hidden"
       p={2}
       textAlign="center"
-      bg="gray.600"
       color="white"
       boxShadow="md"
       minWidth={200}
@@ -104,14 +113,18 @@ export const PokeCard: React.FC<IPokeCard> = ({ name, url }: IPokeCard) => {
         transform: 'scale(1.05)',
       }}
     >
-      <Image
-        // src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonDetails.id}.png`}
-        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${pokemonDetails.id}.gif`}
-        alt={pokemonDetails.name || ''}
-        width="110"
-        height="110"
-        style={{ display: 'block', margin: 'auto', marginTop: '-1px' }}
-      />
+      <Box
+        bg={typeColors[pokemonDetails.types[0].type.name] || 'teal.500'}
+        borderRadius="lg"
+      >
+        <Image
+          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${pokemonDetails.id}.gif`}
+          alt={pokemonDetails.name || ''}
+          width="110"
+          height="110"
+          style={{ display: 'block', margin: 'auto', marginTop: '-1px' }}
+        />
+      </Box>
       <Text
         mt={4}
         fontWeight="semibold"
