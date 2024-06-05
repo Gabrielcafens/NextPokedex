@@ -16,8 +16,8 @@ import { useState, useEffect } from 'react';
 
 import { PokeCard } from '~/lib/components/Card';
 import { LoadingProgressBar } from '~/lib/components/LoadingProgressBar';
-import { Navbar } from '~/lib/components/Navbar';
 import { NoResultsCard } from '~/lib/components/NoResultsCard';
+import { Header } from '~/lib/layout/header';
 
 interface IPokemon {
   name: string;
@@ -112,7 +112,7 @@ export const Home = () => {
 
   return (
     <Flex direction="column" w="100vw" h="100vh" bgColor="gray.800">
-      <Navbar
+      <Header
         searchTerm={searchTerm}
         onSearchChange={handleInputChange}
         onHomeClick={handleHomeClick}
