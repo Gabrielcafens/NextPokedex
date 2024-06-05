@@ -7,6 +7,8 @@ import {
   Center,
   useToast,
   Image,
+  Box,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import axios from 'axios';
 import Link from 'next/link';
@@ -30,6 +32,9 @@ export const Home = () => {
   const [countPokemons, setCountPokemons] = useState(0);
   const [loading, setLoading] = useState(false);
   const toast = useToast();
+
+  const isMobile = useBreakpointValue({ base: true, md: false });
+
   const fetchPokemons = async () => {
     try {
       setLoading(true);
@@ -104,6 +109,7 @@ export const Home = () => {
       setLoading(false);
     }
   };
+
   return (
     <Flex direction="column" w="100vw" h="100vh" bgColor="gray.800">
       <Navbar
@@ -125,7 +131,7 @@ export const Home = () => {
           </WrapItem>
         ) : (
           pokemons.map((pokemon: IPokemon) => (
-            <WrapItem key={pokemon.name}>
+            <WrapItem key={pokemon.name} width={isMobile ? '50%' : 'auto'}>
               <Link href={`/pokemonId/${pokemon.name}`}>
                 <PokeCard name={pokemon.name} url={pokemon.url} />
               </Link>
@@ -133,53 +139,50 @@ export const Home = () => {
           ))
         )}
       </Wrap>
-      <Flex justify="center" mt={10}>
-        <Image
-          src="/assets/bet55.png"
-          alt="Advertisement"
-          width="30"
-          height="30"
-        />
-        <Image
-          src="/assets/bet55.png"
-          alt="Advertisement"
-          width="30"
-          height="30"
-        />
-        <Image
-          src="/assets/bet55.png"
-          alt="Advertisement"
-          width="30"
-          height="30"
-        />
-        <Image
-          src="/assets/bet55.png"
-          alt="Advertisement"
-          width="30"
-          height="30"
-        />
+      <Flex
+        justifyContent="space-between"
+        alignItems="center"
+        m={4}
+        flexDirection={isMobile ? 'column' : 'row'}
+      >
+        {!isMobile && (
+          <>
+            <Image
+              src="/assets/bet55.png"
+              alt="Advertisement"
+              borderRadius={40}
+            />
+            <Image
+              src="/assets/bet55.png"
+              alt="Advertisement"
+              borderRadius={40}
+            />
+          </>
+        )}
+        <Box display="flex" justifyContent="center" mt={4}>
+          <Button
+            onClick={() => setCountPokemons(countPokemons - 20)}
+            mr={2}
+            isDisabled={countPokemons === 0}
+            size={isMobile ? 'lg' : 'md'}
+          >
+            Prev
+          </Button>
+          <Button
+            onClick={() => setCountPokemons(countPokemons + 20)}
+            ml={2}
+            isDisabled={currentPage === totalPages}
+            size={isMobile ? 'lg' : 'md'}
+          >
+            Next
+          </Button>
+        </Box>
+        {loading && (
+          <Center mt={4}>
+            <LoadingProgressBar loading={false} />
+          </Center>
+        )}
       </Flex>
-      <Center mt={10} ml="auto" mr={2}>
-        <Button
-          onClick={() => setCountPokemons(countPokemons - 20)}
-          mr={2}
-          isDisabled={countPokemons === 0}
-        >
-          Prev
-        </Button>
-        <Button
-          onClick={() => setCountPokemons(countPokemons + 20)}
-          ml={2}
-          isDisabled={currentPage === totalPages}
-        >
-          Next
-        </Button>
-      </Center>
-      {loading && (
-        <Center mt={4}>
-          <LoadingProgressBar loading={false} />
-        </Center>
-      )}
     </Flex>
   );
 };
