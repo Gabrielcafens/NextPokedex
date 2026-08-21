@@ -43,7 +43,7 @@ export const Home = () => {
       );
 
       setPokemons(response.data.results);
-      setTotalPages(Math.ceil(response.data.count / countPokemons));
+      setTotalPages(Math.ceil(response.data.count / 20));
     } catch (error) {
       toast({
         title: 'Erro ao buscar detalhes do Pokémon',
